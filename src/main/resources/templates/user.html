@@ -2,30 +2,35 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="https://www.thymeleaf.org" xmlns:sec="https://www.thymeleaf.org/thymeleaf-extras-springsecurity3">
 <head>
     <title>Spring Security Example</title>
+    <style>
+        table th, table td {
+            padding: 9px;
+            font-size: 16px;
+            border-style: solid;
+            border-width: 1px;
+        }
+    </style>
 </head>
 <body>
-<h1 th:text="'Hello, ' + ${user.getUsername()} + '! Welcome to spring boot user page!'">...</h1>
+<h1 th:text="'Hello, ' + ${user.getName()} + '! Welcome to spring boot user page!'">...</h1>
 <br>
 <table>
     <tr>
-        <th>Id</th>
-        <th>Username</th>
-        <th>Password</th>
-        <th>Email</th>
-        <th>Role</th>
+        <th th:width="50">UserId</th>
+        <th th:width="120">Name</th>
+        <th th:width="120">Lastname</th>
+        <th th:width="100">Age</th>
+        <th th:width="120">Username</th>
     </tr>
-
     <tr>
         <td th:utext="${user.getId()}">...</td>
-        <td th:utext="${user.getUsername()}">...</td>
-        <td th:utext="${user.getPassword()}">...</td>
+        <td th:utext="${user.getName()}">...</td>
+        <td th:utext="${user.getLastname()}">...</td>
         <td th:utext="${user.getAge()}">...</td>
-        <td th:text="${#strings.setJoin(user.getAuthorities, ',')}">...</td>
+        <td th:utext="${user.getUsername()}">...</td>
     </tr>
-
 </table>
 <br>
-
 <form th:action="@{/logout}">
     <input type="submit" value="LOGOUT"/>
 </form>

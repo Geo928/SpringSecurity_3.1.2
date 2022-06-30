@@ -19,15 +19,19 @@
     <tr>
         <th th:width="50">UserId</th>
         <th th:width="120">Name</th>
-        <th th:width="120">Surname</th>
+        <th th:width="120">Lastname</th>
         <th th:width="50">Age</th>
+        <th th:width="120">Username</th>
+        <th th:width="120">Password</th>
         <th th:width="150">Action</th>
     </tr>
-    <tr th:each="user : ${usersList}">
+    <tr th:each="user : ${users}">
         <td th:text="${user.getId()}">Id</td>
-        <td th:utext="${user.getUsername()}">Name</td>
-        <td th:utext="${user.getSurname()}">Surname</td>
+        <td th:utext="${user.getName()}">Name</td>
+        <td th:utext="${user.getLastname()}">Lastname</td>
         <td th:utext="${user.getAge()}">Age</td>
+        <td th:utext="${user.getUsername()}">Username</td>
+        <td th:utext="${user.getPassword()}">Password</td>
         <td>
             <a th:href="@{/edit/{id}(id=${user.getId()})}">Edit</a>
             <form th:method="DELETE" th:action="@{/{id}(id=${user.getId()})}">

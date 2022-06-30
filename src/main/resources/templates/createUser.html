@@ -1,28 +1,30 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.w3.org/1999/xhtml">
+<html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Create user</title>
+    <title>Title</title>
 </head>
 <body>
-<form action="#" th:action="@{/user-create}" th:object="${user}" method="post">
-    <label for="username">Username</label>
-    <input type="text" th:field="*{username}" id="username" placeholder="Username">
+<form th:method="POST" th:action="@{/admin/user-create}" th:object="${user}">
+    <label for="name">Enter name: </label>
+    <input type="text" th:field="*{name}" id="name"/>
 
-    <label for="password">Password</label>
-    <input type="text" th:field="*{password}" id="password" placeholder="Password">
+    <br>
+    <label for="lastname">Enter lastname: </label>
+    <input type="text" th:field="*{lastname}" id="lastname"/>
+    <br>
+    <label for="age">Enter age: </label>
+    <input type="number" th:field="*{age}" id="age"/>
+    <br>
+    <label for="username">Enter username: </label>
+    <input type="text" th:field="*{username}" id="username"/>
+    <br>
+    <label for="password">Enter password: </label>
+    <input type="text" th:field="*{password}" id="password"/>
+    <br>
 
-    <label for="email">E-mail</label>
-    <input type="text" th:field="*{email}" id="email" placeholder="E-mail">
-
-    <label>
-        <select size="3" name="role" id="roles" multiple="multiple">
-            <option disabled>Roles:</option>
-            <option value="ROLE_ADMIN">ADMIN</option>
-            <option selected value="ROLE_USER">USER</option>
-        </select>
-    </label>
-
-    <input type="submit" value="Create User">
+    <input type="submit" value="Add user"/>
 </form>
+<a th:href="@{/logout}">Logout</a>
 </body>
+</html>

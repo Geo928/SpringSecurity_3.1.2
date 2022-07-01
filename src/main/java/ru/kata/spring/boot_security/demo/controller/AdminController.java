@@ -1,15 +1,14 @@
 package ru.kata.spring.boot_security.demo.controller;
 
+import lombok.extern.slf4j.Slf4j;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.util.List;
-
 @Controller
-@RequestMapping("/admin")
+@Slf4j
 public class AdminController {
     private final UserService userService;
 
@@ -19,8 +18,8 @@ public class AdminController {
 
     @GetMapping("/admin")
     public String findAll(Model model) {
-        List<User> users = userService.findAll();
-        model.addAttribute("users", users);
+        log.info("findAll, {}", model);
+        model.addAttribute("users", userService.findAll());
         return "admin";
     }
 

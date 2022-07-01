@@ -61,7 +61,7 @@ public class UserService implements UserDetailsService {
             throw new UsernameNotFoundException(String.format("User '%s' not found", username));
         }
         return new org.springframework.security.core.userdetails.User(
-                user.getUsername(), user.getPassword(), getAuthorities(user));
+                user.getUsername(), user.getPassword(), user.getAuthorities());
     }
 
     private static Collection<? extends GrantedAuthority> getAuthorities(User user) {

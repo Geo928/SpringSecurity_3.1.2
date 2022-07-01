@@ -7,7 +7,7 @@ import java.util.Collection;
 import java.util.Set;
 
 @Entity
-@Table(name = "users_table_1")
+@Table(name = "users")
 public class User implements UserDetails {
 
     @Id
@@ -30,11 +30,22 @@ public class User implements UserDetails {
     @Column(name = "password")
     private String password;
 
-    @ManyToMany
+    @ManyToMany(fetch = FetchType.EAGER)
     @JoinTable(name = "user_roles",
             joinColumns = {@JoinColumn(name = "user_id", referencedColumnName = "id")},
             inverseJoinColumns = {@JoinColumn(name = "roles_id", referencedColumnName = "id")})
     private Set<Role> roles;
+
+    public User() {}
+
+    public User(String name, String lastname, int age, String username, String password, Set<Role> roles) {
+        this.name = name;
+        this.lastname = lastname;
+        this.age = age;
+        this.username = username;
+        this.password = password;
+        this.roles = roles;
+    }
 
     public Long getId() {
         return id;

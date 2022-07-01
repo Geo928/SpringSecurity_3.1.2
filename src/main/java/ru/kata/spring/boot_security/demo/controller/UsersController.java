@@ -11,6 +11,7 @@ import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
 @Controller
+@RequestMapping("/user")
 public class UsersController {
 
     private final UserService userService;
@@ -20,7 +21,7 @@ public class UsersController {
         this.userService = userService;
     }
 
-    @GetMapping("/user")
+    @GetMapping()
     public String showUserInfo(Model model) {
         Authentication auth = SecurityContextHolder.getContext().getAuthentication();
         User user = userService.findByUsername(auth.getName());

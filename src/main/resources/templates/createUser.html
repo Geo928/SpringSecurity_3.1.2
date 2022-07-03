@@ -2,29 +2,58 @@
 <html xmlns="http://www.w3.org/1999/xhtml" xmlns:th="http://www.thymeleaf.org" lang="en">
 <head>
     <meta charset="UTF-8">
-    <title>Title</title>
+    <title>Create User</title>
 </head>
 <body>
-<form th:method="POST" th:action="@{/admin/user-create}" th:object="${user}">
-    <label for="name">Enter name: </label>
-    <input type="text" th:field="*{name}" id="name"/>
 
-    <br>
-    <label for="lastname">Enter lastname: </label>
-    <input type="text" th:field="*{lastname}" id="lastname"/>
-    <br>
-    <label for="age">Enter age: </label>
-    <input type="number" th:field="*{age}" id="age"/>
-    <br>
-    <label for="username">Enter username: </label>
-    <input type="text" th:field="*{username}" id="username"/>
-    <br>
-    <label for="password">Enter password: </label>
-    <input type="text" th:field="*{password}" id="password"/>
-    <br>
+<table>
+    <tr>
+        <td><h1>Edit User</h1></td>
+    </tr>
+    <tr>
+        <td>
+            <form th:method="POST" th:action="@{/admin}" th:object="${user}">
+
+                <label for="firstName">Enter name</label>
+                <input type="text" th:field="${user.name}" id="firstName">
+                <br/>
+                <br/>
+
+                <label for="lastName">Enter Last Name</label>
+                <input type="text" th:field="${user.lastname}" id="lastName">
+                <br/>
+                <br/>
+
+                <label for="age">Enter age</label>
+                <input type="text" th:field="${user.age}" id="age">
+                <br/>
+                <br/>
+
+                <label for="Username">Enter Username</label>
+                <input type="text" th:field="${user.username}" id="Username">
+                <br/>
+                <br/>
+
+                <label for="Password">Enter Password</label>
+                <input type="text" th:field="${user.password}" id="Password">
+                <br/>
+                <br/>
+                <table style="border: 0px; width: 100px;">
+                    <tr th:each="role:${roles}" style="border: 0px;">
+                        <td style="border: 0px;">
+                            <label th:text="${role.getName()}"></label>
+                        </td>
+                        <td style="border: 0px;">
+                            <label>
+                                <input type="checkbox" th:field="${user.roles}" th:value="${role.getId()}"/>
+                            </label>
+                        </td>
+                    </tr>
+                </table>
 
     <input type="submit" value="Add user"/>
 </form>
 <a th:href="@{/logout}">Logout</a>
+</table>
 </body>
 </html>

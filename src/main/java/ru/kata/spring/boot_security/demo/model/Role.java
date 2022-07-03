@@ -8,7 +8,8 @@ import javax.persistence.*;
 public class Role implements GrantedAuthority {
 
     @Id
-    @Column(name = "id", nullable = false)
+    @Column(name = "id")
+    @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
     @Column(name = "name")

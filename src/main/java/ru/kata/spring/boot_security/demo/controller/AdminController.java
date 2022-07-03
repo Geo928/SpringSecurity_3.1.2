@@ -1,58 +1,79 @@
 package ru.kata.spring.boot_security.demo.controller;
 
-import lombok.extern.slf4j.Slf4j;
+import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.*;
+import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
+import java.util.List;
+
 @Controller
-@Slf4j
 public class AdminController {
     private final UserService userService;
+    private final PasswordEncoder passwordEncoder;
 
-    public AdminController(UserService userService) {
+    public AdminController(UserService userService, PasswordEncoder passwordEncoder) {
         this.userService = userService;
+        this.passwordEncoder = passwordEncoder;
     }
 
-    @GetMapping("/admin")
+    @GetMapping(value = "/admin")
     public String findAll(Model model) {
-        log.info("findAll, {}", model);
         model.addAttribute("users", userService.findAll());
         return "admin";
     }
 
-    @GetMapping("/admin/user-create")
-    public String createUserForm(@ModelAttribute("user") User user) {
-        return "createUser";
+    @GetMapping("/admin/add")
+    public String addUser(Model model) {
+        List<Role> roles = userService.findAllRoles();
+        model.addAttribute("roles", roles);
+        model.addAttribute("user", new User());
+        return "/createUser";
     }
 
-    @PostMapping()
+    @PostMapping("/admin")
     public String createUser(@ModelAttribute("user") User user) {
+        user.setPassword(passwordEncoder.encode(user.getPassword()));
         userService.saveUser(user);
-        return "redirect:/admin/";
+        return "redirect:/admin";
     }
 
-    @GetMapping("/admin/user/{id}")
+  /*  @GetMapping("/user/{id}")
     public String showUserById(@PathVariable("id") Long id, Model model) {
         model.addAttribute(userService.findById(id));
-        return "showUser";
+        return "user";
+    }*/
+
+    @GetMapping("/admin/edit/{id}")
+    public String editUser(Model model, @PathVariable("id") Long id) {
+        List<Role> roles = userService.findAllRoles();
+        model.addAttribute("roles", roles);
+        model.addAttribute("user", userService.findById(id));
+        return "editUser";
     }
 
-    @GetMapping("/admin/user-update/{id}")
+    @PutMapping("/admin")
+    public String userUpdate(@ModelAttribute("user") User user) {
+        userService.saveUser(user);
+        return "redirect:/admin";
+    }
+
+  /*@GetMapping("/user-update/{id}")
     public String updateUserForm(@PathVariable("id") Long id, Model model) {
         model.addAttribute("user", userService.findById(id));
         return "editUser";
     }
 
-    @PatchMapping("/admin/user-update")
+    @PatchMapping("/user-update")
     public String updateUser(@ModelAttribute("user") User user) {
         userService.saveUser(user);
         return "redirect:/admin";
-    }
+    }*/
 
-    @DeleteMapping("/admin/user-delete/{id}")
+    @DeleteMapping("/{id}")
     public String deleteUser(@PathVariable("id") Long id) {
         userService.deleteById(id);
         return "redirect:/admin/";

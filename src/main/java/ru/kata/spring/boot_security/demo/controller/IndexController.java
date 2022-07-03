@@ -8,7 +8,6 @@ import ru.kata.spring.boot_security.demo.model.Role;
 import ru.kata.spring.boot_security.demo.model.User;
 import ru.kata.spring.boot_security.demo.service.UserService;
 
-import java.util.Collection;
 import java.util.HashSet;
 import java.util.List;
 import java.util.Set;
@@ -43,6 +42,6 @@ public class IndexController {
             userService.saveUser(new User("Vasya", "Pupkin", 16, "vasyap", bCryptPasswordEncoder.encode("vasyap"), userRole));
             userService.saveUser(new User("Kostya", "Gradov", 52, "kostyag", bCryptPasswordEncoder.encode("kostyag"), anyRole));
         }
-        return "/index";
+        return "index";
     }
 }

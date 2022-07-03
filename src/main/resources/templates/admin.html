@@ -33,7 +33,7 @@
         <td th:utext="${user.getUsername()}">Username</td>
         <td th:utext="${user.getPassword()}">Password</td>
         <td>
-            <a th:href="@{/edit/{id}(id=${user.getId()})}">Edit</a>
+            <a th:href="@{admin/edit/{id}(id=${user.getId()})}">Edit</a>
             <form th:method="DELETE" th:action="@{/{id}(id=${user.getId()})}">
                 <input type="submit" value="Delete"/>
             </form>
@@ -42,6 +42,6 @@
 </table>
 <br/>
 <hr/>
-<a href="/add">Create new user</a>
+<a href="admin/add">Create new user</a>
 </body>
 </html>
